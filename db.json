@@ -1,0 +1,120 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "name": "Eletrodomésticos",
+      "slug": "eletrodomesticos"
+    },
+    {
+      "id": "2",
+      "name": "Roupas",
+      "slug": "roupas"
+    },
+    {
+      "id": "3",
+      "name": "Brinquedos",
+      "slug": "brinquedos"
+    },
+    {
+      "id": "4",
+      "name": "Higiene Pessoal",
+      "slug": "higiene-pessoal"
+    },
+    {
+      "id": "5",
+      "name": "Ferramentas",
+      "slug": "ferramentas"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "Camiseta",
+      "description": "Camiseta azul escuro",
+      "price": "49,90",
+      "image": [
+        "fashion_07.jpg"
+      ],
+      "categoryId": "2"
+    },
+    {
+      "id": "5",
+      "name": "Camiseta",
+      "description": "Camiseta azul escuro",
+      "price": "49,90",
+      "image": [
+        "fashion_07.jpg"
+      ],
+      "categoryId": "2"
+    },
+    {
+      "id": "2",
+      "name": "Tenis",
+      "description": "Tenis bordo",
+      "price": "79,90",
+      "image": [
+        "fashion_05.jpg"
+      ],
+      "categoryId": "2"
+    },
+    {
+      "id": "3",
+      "name": "Shorts",
+      "description": "Shorts jeans",
+      "price": "59,90",
+      "image": [
+        "fashion_03.jpg"
+      ],
+      "categoryId": "2"
+    },
+    {
+      "id": "6",
+      "name": "Shorts",
+      "description": "Shorts jeans",
+      "price": "59,90",
+      "image": [
+        "fashion_03.jpg"
+      ],
+      "categoryId": "2"
+    },
+    {
+      "id": "4",
+      "name": "Brinqeudo",
+      "description": "Brinquedo infantil",
+      "price": "129,90",
+      "image": [
+        "kidtoy_06.jpg",
+        "kidtoy_01.jpg",
+        "kidtoy_02.jpg",
+        "kidtoy_03.jpg",
+        "kidtoy_04.jpg",
+        "kidtoy_05.jpg",
+        "kidtoy_07.jpg"
+      ],
+      "categoryId": "3"
+    },
+    {
+      "id": "47",
+      "name": "Brinqeudo",
+      "description": "Brinquedo infantil",
+      "price": "129,90",
+      "image": [
+        "kidtoy_06.jpg",
+        "kidtoy_01.jpg",
+        "kidtoy_02.jpg",
+        "kidtoy_03.jpg",
+        "kidtoy_04.jpg",
+        "kidtoy_05.jpg",
+        "kidtoy_07.jpg"
+      ],
+      "categoryId": "3"
+    }
+  ],
+  "users": [
+    {
+      "email": "olivier@mail.com",
+      "password": "$2a$10$uibrz7enJbIChc8PDoXUU.IvMMSkfujh7vTGwZlqDu9Mx0KeQqA4G",
+      "id": 1
+    }
+  ]
+}
