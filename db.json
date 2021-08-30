@@ -114,7 +114,52 @@
     {
       "email": "olivier@mail.com",
       "password": "$2a$10$uibrz7enJbIChc8PDoXUU.IvMMSkfujh7vTGwZlqDu9Mx0KeQqA4G",
+      "address": "asd",
       "id": 1
+    },
+    {
+      "email": "jpvnth@mail.com",
+      "password": "$2a$10$lgeaX5NKu/R7ywz6AXZMVeWzmxDpSJb3jyOZBQ3/Gt4.Cm2VvOWhC",
+      "name": "Joao Paulo",
+      "address": "asd",
+      "id": 2
+    },
+    {
+      "email": "jpvnth2@mail.com",
+      "password": "$2a$10$mu2DGqLlSYC/0F9vCGBBaeADBIK0s16GYiT9v6tl4YU6NbiXxyG1W",
+      "name": "Joao Paulo",
+      "address": "asd",
+      "id": 3
+    },
+    {
+      "email": "jpvnth@gmail.com",
+      "password": "$2a$10$6J3vCrV4PuDOVBKFpsl8buAIUw3As99smYjG3fDniOD58UCRhZ40K",
+      "name": "Joao",
+      "address": [
+        {
+          "address": "Rua Aldino Domingos Passarin",
+          "district": "centro",
+          "city": "Nova Laranjeiras",
+          "state": "PR",
+          "CEP": "85350-000",
+          "phone": "42999942601"
+        }
+      ],
+      "id": 4
+    },
+    {
+      "email": "jpvnt2h@gmail.com",
+      "password": "$2a$10$RSbPI1xoTJZoqrl.hhHmQ.4fgR2w7w5judILWce0stWpW3.MLYhDy",
+      "name": "Joao",
+      "address": "asd",
+      "id": 5
+    },
+    {
+      "email": "123@123",
+      "password": "$2a$10$E4JsI8OvZZ8TQW2.5q4uHeh0HgcPkEuYsJXtfixkLSHMf3tkeoRP2",
+      "name": "Joao",
+      "address": "asdas",
+      "id": 6
     }
   ]
 }

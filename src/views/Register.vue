@@ -17,7 +17,7 @@
                 <label for="inputPassword" id="labelPassword">Senha</label>
                 <input type="password" id="inputPassword" v-model="password" @focus="inputFocus('Password')" @blur="inputBlur('Password')">
             </div>
-            <button>Cadastre-se</button>
+            <button @click.stop.prevent="Register">Cadastre-se</button>
             <p>ou</p>
             <router-link to="/login">acesse sua conta</router-link>
         </form>
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import axios from "axios"
+import Cookie from "js-cookie"
 export default {
     name: 'login',
     data() {
@@ -46,6 +48,28 @@ export default {
                 label.classList.add('active')
             else 
                 label.classList.remove('active')
+        },
+        Register() {
+            let payload = {
+                "name": this.name,
+                "email": this.email,
+                "password": this.password
+            }
+            console.log(payload)
+            axios.post('/register', payload)
+            .then(res=> {
+                console.log(res)
+                if(res.data.accessToken) {
+                    Cookie.set('tokenE-Commerce', res.data.accessToken)
+                    Cookie.set('idE-Commerce', res.data.user.id)
+                    Cookie.set('nameE-Commerce', res.data.user.name)
+                    this.$store.dispatch('getUserLogged')
+                    this.$router.push('/')
+                }
+            })
+            .catch(err=>{
+                console.log('asd')
+            })
         }
     }
 }
@@ -103,6 +127,7 @@ export default {
                 font-weight: 500;
                 border-radius: 25px;
                 border: none;
+                outline: none;
             }
             p {
                 color: rgb(150, 150, 150);

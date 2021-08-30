@@ -22,7 +22,9 @@
                         <i class="fas fa-user"></i>
                     </div>
                     <p v-if="!$store.state.isLoggedIn"><router-link to="/login">Faça login</router-link> ou <br/> <router-link to="/register">crie sua conta </router-link></p>
-                    <div class="cart">
+                    <span v-else><router-link to="/user">bem vindo<p>{{$store.state.user.name}}</p></router-link></span>
+                    <span v-if="$store.state.isLoggedIn" @click="logout" class="logout">logout</span>
+                    <div class="cart" @click.stop.prevent="cart">
                         <i class="fas fa-shopping-cart"></i>
                     </div>
                 </div>
@@ -39,8 +41,8 @@
 </template>
 
 <script>
-import cookies from "js-cookie"
 import axios from "axios"
+import cookie from 'js-cookie'
 export default {
     name : "Header",
     data(){
@@ -54,7 +56,6 @@ export default {
     },
     mounted() {
         this.getCategories()
-        this.getCookies()
     },
     watch: {
         search() {
@@ -86,10 +87,13 @@ export default {
             this.search = ''
             this.searchResult = []
         },
-        getCookies() {
-            if(cookies.get('token')) {
-                this.$store.state.isLoggedIn = true
-            }
+        logout() {
+            cookie.remove('idE-Commerce')
+            cookie.remove('tokenE-Commerce')
+            this.$store.commit('Logout')
+        },
+        cart() {
+            this.$router.push(`/cart`)
         }
     }
 }
@@ -201,7 +205,6 @@ export default {
                 }
                 .cart {
                     i {
-                        margin-left: 15px;
                         font-size: 21px;
                         color: rgb(57, 57, 57);
                     }
@@ -226,6 +229,22 @@ export default {
                         font-size: 14px;
                         margin: 5px 0;
                         color: rgb(169, 169, 169);
+                    }
+                }
+                span {
+                    font-size: 14px;
+                    color: rgb(99, 99, 99);
+                    margin: 0 5px 0 0;
+                    p {
+                        font-size: 16px;
+                    }
+                }
+                .logout {
+                    margin: 0 10px;
+                    display: block;
+                    cursor: pointer;
+                    &:hover {
+                        text-decoration: none;
                     }
                 }
             }

@@ -3,33 +3,6 @@
         <div class="product_box_single" v-for="product in products" :key="product.id" @click.stop.prevent="ClickProduct(product.id)">
             <ProductSingle :product="product"/>
         </div>
-        <div class="product_box_single" v-for="product in products" :key="product.id" @click.stop.prevent="ClickProduct(product.id)">
-            <ProductSingle :product="product"/>
-        </div>
-        <div class="product_box_single" v-for="product in products" :key="product.id" @click.stop.prevent="ClickProduct(product.id)">
-            <ProductSingle :product="product"/>
-        </div>
-        <div class="product_box_single" v-for="product in products" :key="product.id" @click.stop.prevent="ClickProduct(product.id)">
-            <ProductSingle :product="product"/>
-        </div>
-        <div class="product_box_single" v-for="product in products" :key="product.id" @click.stop.prevent="ClickProduct(product.id)">
-            <ProductSingle :product="product"/>
-        </div>
-        <div class="product_box_single" v-for="product in products" :key="product.id" @click.stop.prevent="ClickProduct(product.id)">
-            <ProductSingle :product="product"/>
-        </div>
-        <div class="product_box_single" v-for="product in products" :key="product.id" @click.stop.prevent="ClickProduct(product.id)">
-            <ProductSingle :product="product"/>
-        </div>
-        <div class="product_box_single" v-for="product in products" :key="product.id" @click.stop.prevent="ClickProduct(product.id)">
-            <ProductSingle :product="product"/>
-        </div>
-        <div class="product_box_single" v-for="product in products" :key="product.id" @click.stop.prevent="ClickProduct(product.id)">
-            <ProductSingle :product="product"/>
-        </div>
-        <div class="product_box_single" v-for="product in products" :key="product.id" @click.stop.prevent="ClickProduct(product.id)">
-            <ProductSingle :product="product"/>
-        </div>
     </div>
 </template>
 

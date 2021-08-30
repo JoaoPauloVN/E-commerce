@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!$store.state.loading">
     <Header />
     <router-view/>
     <Footer />
@@ -9,12 +9,15 @@
 <script>
   import Footer from "./components/Footer.vue"
   import Header from "./components/Header.vue"
-  import { MapState } from "vuex"
+  import { MapState, MapActions } from "vuex"
 
   export default({
     components: {
       Footer,
       Header
+    },
+    mounted() {
+      this.$store.dispatch('getUserLogged')
     }
   })
 </script>

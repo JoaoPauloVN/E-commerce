@@ -9,7 +9,7 @@
 
             <div class="form_wrapper">
                 <label for="inputPassword" id="labelPassword">Senha</label>
-                <input type="password" id="inputPassword" v-model="password" @focus="inputFocus('Password')" @blur="inputBlur('Password')">
+                <input type="password" id="inputPassword" v-model="password" @focus="inputFocus('Password')" @blur="inputBlur('Password')" autocomplete="off">
             </div>
             <button @click.stop.prevent="Login">Acessar conta</button>
             <p>ou</p>
@@ -26,7 +26,7 @@ export default {
     data() {
         return {
             email: '',
-            password: ''
+            password: '',
         }
     },
     methods: {
@@ -44,17 +44,18 @@ export default {
         },
         Login() {
             let payload = {
-                "email": "olivier@mail.com",
-                "password": "bestPassw0rd"
+                "email": this.email,
+                "password": this.password
             }
-            axios({
-                url: '/login',
-                method: 'POST',
-                data: payload
-            })
+            axios.post('/login', payload)
             .then(res=> {
-                let data = res.data
-                Cookie.set('token', data.accessToken)
+                if(res.data.accessToken) {
+                    Cookie.set('tokenE-Commerce', res.data.accessToken)
+                    Cookie.set('idE-Commerce', res.data.user.id)
+                    Cookie.set('nameE-Commerce', res.data.user.name)
+                    this.$store.dispatch('getUserLogged')
+                    this.$router.push('/')
+                }
             })
             .catch(err=> console.log(err))
         }

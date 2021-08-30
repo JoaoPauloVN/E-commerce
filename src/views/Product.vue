@@ -37,28 +37,31 @@
                     <img src="../assets\brands\cards.png" alt="cards">
                 </div>
                 <div class="info_wrapper">
-                    <button>Comprar</button>
+                    <button @click="addCart(product)">Comprar</button>
                 </div>
             </div>
         </div>
     </div>
-    
+    <Notification :class="{'desactive': notification === false}" v-on:close="closeBoxNotification" :progress="progress" />
   </div>
 </template>
 
 <script>
     import axios from "axios"
+    import Notification from "@/components/CartNotification.vue"
   export default {
     name: "Product",
     data() {
       return {
           product: [],
           images: [],
-          curIndex: 0
+          curIndex: 0,
+          notification: false,
+          progress: 0
       }
     },
     components: {
-
+        Notification
     },
     mounted(){
         let id = this.$route.params.id
@@ -66,17 +69,67 @@
     },
     watch: {
         $route(){
-            let id = this.$route.params.id
-            this.getProduct(id)
+            if(this.$route.fullPath.split('/')[0] == 'products' ) {
+                let id = this.$route.params.id
+                this.getProduct(id) 
+            }
         }
     }, 
     methods: {
+        addCart(payload) {
+            let cart = []
+            
+            if(JSON.parse(localStorage.getItem('cart')) === null) {
+                payload.qnt = 1
+                cart.push(payload)
+                localStorage.setItem('cart', JSON.stringify(cart))
+                if(this.notification === false) {
+                    this.notification = true
+                    setInterval(()=>{
+                        this.progress += 1
+                    }, 50)
+                    let timer = setTimeout((e)=> {
+                        this.notification = false
+                        clearInterval(progress)
+                        this.progress = 0
+                    }, 6000)
+                }
+            } else {
+                const localCart = JSON.parse(localStorage.getItem('cart'))
+                const productExists = localCart.find(i=> i.id === payload.id)
+                if(productExists) {
+                    productExists.qnt += 1
+                    localStorage.setItem('cart', JSON.stringify(localCart))
+                }
+                else {
+                    payload.qnt = 1
+                    localCart.push(payload)
+                    localStorage.setItem('cart', JSON.stringify(localCart))
+                }
+                
+                if(this.notification === false) {
+                    this.notification = true
+                    let progress = setInterval(()=>{
+                        this.progress += 1
+                    }, 50)
+                    let timer = setTimeout((e)=> {
+                        this.notification = false
+                        clearInterval(progress)
+                        this.progress = 0
+                    }, 5000)
+                }
+            }
+        },
         getProduct(id) {
             axios.get(`/products/${id}`).then(res=> {
                 this.product = res.data
                 this.images = res.data.image
             })
 
+        },
+        closeBoxNotification() {
+            console.log('1')
+            this.notification = false
         },
         nextImage() {
             let max = this.images.length -1

@@ -7,18 +7,17 @@
             </div>   
         </div>
         <div class="products">
-            <div class="arrows arrow_left">
+            <div class="arrows arrow_left" @click="leftCarrouseu">
                 <i class="fas fa-chevron-left"></i>
             </div>
             <div class="products_box">
-                <div class="center">
-                    <div class="product_single" @click="ClickProduct(product.id)" v-for="product in products" :key="product.id">
+                <div class="center asdas">
+                    <div class="product_single" @click="ClickProduct(product.id)" v-for="product in products" :key="product.id"> 
                         <ProductSingle :product="product" />
                     </div>
                 </div>
-                
             </div>
-            <div class="arrows arrow_right">
+            <div class="arrows arrow_right" @click="RightCarrouseu">
                 <i class="fas fa-chevron-right"></i>
             </div>
         </div>
@@ -45,6 +44,20 @@ export default {
         },
         getProducts() {
             axios.get('products').then(res=> this.products = res.data).catch(er=> console.log(er))
+        },
+        RightCarrouseu() {
+            let pro = document.querySelector('.products_box')
+            let box = document.querySelector('.asdas')
+            let boxWidth = box.attributes[0].ownerElement.scrollWidth
+            let children = box.attributes[0].ownerElement.children
+            pro.scrollLeft += boxWidth / children.length
+        },
+        leftCarrouseu() {
+            let pro = document.querySelector('.products_box')
+            let box = document.querySelector('.asdas')
+            let boxWidth = box.attributes[0].ownerElement.scrollWidth
+            let children = box.attributes[0].ownerElement.children
+            pro.scrollLeft -= boxWidth / children.length
         }
     },
     mounted() {
@@ -76,10 +89,6 @@ export default {
                 color: rgb(255, 115, 0);
             }
         }
-        .products_box {
-            width: 100%;
-            height: 40px;
-        }
         .products {
             display: flex;
             justify-content: space-between;
@@ -97,12 +106,17 @@ export default {
             }
             .arrow_right {
                 margin-right: 15px;
+                i {
+                    margin-left: 5px;
+                }
             }
-            
+            .center {
+                    padding: 0;
+                }
             .products_box {
                 width: 100%;
                 height: 100%;
-                overflow: hidden;
+                overflow: auto;
                 white-space: nowrap;
                 .product_single {
                     display: inline-block;
@@ -110,6 +124,9 @@ export default {
                     width: 215px;
                     background: rgb(247, 247, 247);                  
                     cursor: pointer;
+                }
+                &::-webkit-scrollbar {
+                    height: 0px;
                 }
             }      
         }
