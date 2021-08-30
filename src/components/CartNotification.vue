@@ -1,7 +1,7 @@
 <template>
   <div class="notification">
-      <h2>Title</h2>
-      <p>Message</p>
+      <h2>{{title}}</h2>
+      <p>{{message}}</p>
       <div class="progress">
           <div class="progress-bar" :style="{width: progress + '%'}"></div>
       </div>
@@ -18,7 +18,9 @@ export default {
         }
     },
     props: [
-        'progress'
+        'progress',
+        'title',
+        'message'
     ],
     computed: {
         TotalProgress() {
@@ -37,13 +39,14 @@ export default {
         align-items: center;
         flex-wrap: wrap;
         background: rgb(18, 186, 18);
-        width: 300px;
+        min-width: 300px;
+        max-width: 400px;
         padding: 10px;
         border-radius: 5px;
         box-shadow: 0 5px 15px 0 rgba(0,0,0,.6);
         transition: all 1s;
         &.desactive {
-            right: -400px;
+            right: -600px;
             .progress {
                 background: linear-gradient(to right, transparent, white);
             }
@@ -51,7 +54,7 @@ export default {
         h2 {
             width: 100%;
             color: white;
-            font-size: 22px;
+            font-size: 20px;
             letter-spacing: .8px;
         }
         p {

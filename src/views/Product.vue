@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-    <Notification :class="{'desactive': notification === false}" v-on:close="closeBoxNotification" :progress="progress" />
+    <Notification :class="{'desactive': notification === false}" v-on:close="closeBoxNotification" :progress="progress" :title="'Adicionado ao Carrinho'" :message="'Produto ' + product.name + ' foi adicionado ao carrinho'"/>
   </div>
 </template>
 
@@ -57,7 +57,8 @@
           images: [],
           curIndex: 0,
           notification: false,
-          progress: 0
+          progress: 0,
+          timeModal: 7000 // in milliseconds = Xs * 1000
       }
     },
     components: {
@@ -85,14 +86,15 @@
                 localStorage.setItem('cart', JSON.stringify(cart))
                 if(this.notification === false) {
                     this.notification = true
-                    setInterval(()=>{
-                        this.progress += 1
+                    console.log()
+                    let progress = setInterval(()=>{
+                        this.progress += (10 / (this.timeModal / 500))
                     }, 50)
                     let timer = setTimeout((e)=> {
                         this.notification = false
                         clearInterval(progress)
                         this.progress = 0
-                    }, 6000)
+                    }, this.timeModal)
                 }
             } else {
                 const localCart = JSON.parse(localStorage.getItem('cart'))
@@ -110,13 +112,13 @@
                 if(this.notification === false) {
                     this.notification = true
                     let progress = setInterval(()=>{
-                        this.progress += 1
+                        this.progress += (10 / (this.timeModal / 500))
                     }, 50)
                     let timer = setTimeout((e)=> {
                         this.notification = false
                         clearInterval(progress)
                         this.progress = 0
-                    }, 5000)
+                    }, this.timeModal)
                 }
             }
         },
