@@ -9,7 +9,6 @@
 <script>
   import Footer from "./components/Footer.vue"
   import Header from "./components/Header.vue"
-  import { MapState, MapActions } from "vuex"
 
   export default({
     components: {

@@ -12,11 +12,12 @@
                 <input type="text" id="inputEmail" v-model="user.email" @input="inputFocus('Email')" @focus="inputFocus('Email')" @blur="inputBlur('Email')"> 
             </div>
         </form>
-        <button>Alterar Dados</button>
+        <button @click="changeData">Alterar Dados</button>
     </div>
 </template>
 
 <script>
+import axios from "axios"
 export default {
     name: 'UserProfile',
     data() {
@@ -39,6 +40,23 @@ export default {
         },
         getUser() {
             this.user = this.$store.state.user
+            if(this.user != null) {
+                if(this.user.name != '') {
+                    let label = document.querySelector('#labelName')
+                    label.classList.add('active')
+                }
+                if(this.user.email != '') {
+                    let label = document.querySelector('#labelEmail')
+                    label.classList.add('active')
+                }
+            }
+        },
+        changeData() {
+            axios.patch(`users/${this.user.id}`,{
+                "name": this.user.name,
+                "email": this.user.email
+            })
+            .catch()
         }
     },
     mounted() {
@@ -109,5 +127,13 @@ export default {
             text-decoration: underline;
         }
     }
-    
+    @media screen and (max-width: 610px) {
+        .profile {
+            form {
+                .form_wrapper {
+                    width: 100%;
+                }
+            } 
+        }
+    }
 </style>

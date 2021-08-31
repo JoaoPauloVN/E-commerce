@@ -34,7 +34,7 @@
                     <h2 class="price">{{ product.price }}</h2>
                 </div>
                 <div class="info_wrapper">
-                    <img src="../assets\brands\cards.png" alt="cards">
+                    <img src="../assets\brands\cards.png" alt="cards" class="cards">
                 </div>
                 <div class="info_wrapper">
                     <button @click="addCart(product)">Comprar</button>
@@ -84,6 +84,7 @@
                 payload.qnt = 1
                 cart.push(payload)
                 localStorage.setItem('cart', JSON.stringify(cart))
+                this.$store.dispatch('upgradeCartQnt')
                 if(this.notification === false) {
                     this.notification = true
                     console.log()
@@ -108,7 +109,7 @@
                     localCart.push(payload)
                     localStorage.setItem('cart', JSON.stringify(localCart))
                 }
-                
+                this.$store.dispatch('upgradeCartQnt')
                 if(this.notification === false) {
                     this.notification = true
                     let progress = setInterval(()=>{
@@ -130,7 +131,6 @@
 
         },
         closeBoxNotification() {
-            console.log('1')
             this.notification = false
         },
         nextImage() {
@@ -254,10 +254,7 @@
                 .price {
                     color: rgb(255, 115, 0);
                 }
-                img {
-                    width: 350px;
-                    
-                }
+                
                 button {
                     padding: 12px 50px;
                     border-radius: 20px;
@@ -269,8 +266,41 @@
                     background: rgb(255, 115, 0);
                     cursor: pointer;
                 }
+                .cards {
+                    width: 22rem;
+                }
             }
         }
     }
-    
+    @media screen and (max-width: 810px) {
+        .box_product {
+            .product_info {
+                .info_wrapper {
+                    .cards {
+                        width: 18rem;
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 610px) {
+        .box_product {
+            flex-wrap: wrap;
+            .product_img {
+                width: 100%;
+                margin-top: 0;
+                .box_images {
+                    display: none;
+                }
+            }
+            .product_info {
+                width: 100%;
+                .info_wrapper {
+                    .cards {
+                        width: 18rem;
+                    }
+                }
+            }
+        }
+    }
 </style>

@@ -1,34 +1,34 @@
 <template>
     <div class="address">
-        <h2><i class="fas fa-map-marked-alt"></i> Novo Endereço</h2>
+        <h2><i class="fas fa-map-marked-alt"></i> Editar Endereço</h2>
         <div class="address_wrapper">
             <div class="form_wrapper w66">
-                <label for="inputAddress" id="labelAddress">Endereço</label>
-                <input type="text" id="inputAddress"  v-model="address" @focus="inputFocus('Address')" @blur="inputBlur('Address')">
+                <label for="inputRoad" id="labelRoad">Rua</label>
+                <input type="text" id="inputRoad"  v-model="address.road" @focus="inputFocus('Road')" @blur="inputBlur('Road')">
             </div>
             <div class="form_wrapper w33">
                 <label for="inputNumber" id="labelNumber">Numero</label>
-                <input type="text" id="inputNumber" v-model="number" @focus="inputFocus('Number')" @blur="inputBlur('Number')">
+                <input type="text" id="inputNumber" v-model="address.number" @focus="inputFocus('Number')" @blur="inputBlur('Number')">
             </div>
             <div class="form_wrapper w50">
                 <label for="inputDistrict" id="labelDistrict">Bairro</label>
-                <input type="text" id="inputDistrict" v-model="district" @focus="inputFocus('District')" @blur="inputBlur('District')">
+                <input type="text" id="inputDistrict" v-model="address.district" @focus="inputFocus('District')" @blur="inputBlur('District')">
             </div>
             <div class="form_wrapper w50">
                 <label for="inputCity" id="labelCity">Cidade</label>
-                <input type="text" id="inputCity" v-model="city" @focus="inputFocus('City')" @blur="inputBlur('City')">
+                <input type="text" id="inputCity" v-model="address.city" @focus="inputFocus('City')" @blur="inputBlur('City')">
             </div>
             <div class="form_wrapper w50">
                 <label for="inputState" id="labelState">Estado</label>
-                <input type="text" id="inputState" v-model="state" @focus="inputFocus('State')" @blur="inputBlur('State')">
+                <input type="text" id="inputState" v-model="address.state" @focus="inputFocus('State')" @blur="inputBlur('State')">
             </div>
             <div class="form_wrapper w50">
                 <label for="inputCEP" id="labelCEP">CEP</label>
-                <input type="text" id="inputCEP" v-model="CEP" @focus="inputFocus('CEP')" @blur="inputBlur('CEP')">
+                <input type="text" id="inputCEP" v-model="address.CEP" @focus="inputFocus('CEP')" @blur="inputBlur('CEP')">
             </div>
             <div class="form_wrapper w50">
                 <label for="inputPhone" id="labelPhone">Telefone</label>
-                <input type="text" id="inputPhone" v-model="phone" @focus="inputFocus('Phone')" @blur="inputBlur('Phone')">
+                <input type="text" id="inputPhone" v-model="address.phone" @focus="inputFocus('Phone')" @blur="inputBlur('Phone')">
             </div>
         </div>
         <button @click.stop.prevent="NewAddress">Salvar Endereço</button>
@@ -41,13 +41,7 @@ export default {
     name: 'NewUserAddress',
     data() {
         return {
-           address: '',
-           number: '',
-           district: '',
-           city: '',
-           state: '',
-           CEP: '',
-           phone: ''
+            address: this.$store.state.user.address[0]
         }
     },
     methods: {
@@ -67,13 +61,13 @@ export default {
             const id = this.$store.state.user.id
             const payload = {
                 "address": [{
-                    "address": this.address,
-                    "number": this.num,
-                    "district": this.district,
-                    "city": this.city,
-                    "state": this.state,
-                    "CEP": this.CEP,
-                    "phone": this.phone
+                    "road": this.address.road,
+                    "number": this.address.number,
+                    "district": this.address.district,
+                    "city": this.address.city,
+                    "state": this.address.state,
+                    "CEP": this.address.CEP,
+                    "phone": this.address.phone
                 }]        
             }
             let errors = []
@@ -81,7 +75,7 @@ export default {
                 let a = v.charAt(0).toUpperCase() + v.slice(1)
                 let el = document.querySelector('#input'+a)
                 el.style.border = '1px solid gray'
-                if(payload.address[0][v] == '') {
+                if(payload.address[0][v] === '') {
                     el.style.border = "2px solid red"
                     errors.push(v)
                 }
@@ -93,7 +87,19 @@ export default {
                     this.$router.push('/user/endereco')
                 })
             }
-            
+        }
+    },
+    mounted() {
+        this.address = this.$store.state.user.address[0]
+        for(const addr in this.address){
+            const step = addr.charAt(0).toUpperCase() + addr.slice(1,)
+            if(this.address[addr] !== '') {
+                let label = document.querySelector(`#label${step}`)
+                if(label !== null) {
+                    label.classList.add('active')
+                }
+            }
+
         }
     }
 }
@@ -169,5 +175,28 @@ export default {
                 }
             } 
         }      
+    }
+    @media screen and (max-width: 610px) {
+        .address {
+            .address_wrapper {
+                .form_wrapper {
+                    &.w66 {
+                        width: 100%;
+                    }
+                    &:nth-of-type(2) {
+                        width: 33%;
+                    }
+                    &:nth-of-type(3) {
+                        width: 66%;
+                    }
+                    &:nth-of-type(4) {
+                        width: 66%;
+                    }
+                    &:nth-of-type(5) {
+                        width: 33%;
+                    }
+                }
+            } 
+        }
     }
 </style>

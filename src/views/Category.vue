@@ -1,28 +1,35 @@
 <template>
     <div id="category">
+        <div class="filter_blur" @click.stop.prevent="filterToggle"></div>
         <div class="center">
             <div class="sidebar">
-                <div class="filter_wrapper">
-                    <h3>Preço</h3>
-                    <div class="price_field"> 
-                        <input type="range" min="0" max="500" :value="minVal" id="min" @input="minChange">
-                        <input type="range" min="0" max="500" :value="maxVal" id="max" @input="maxChange">                    
+                <div class="btn_mobile" @click.stop.prevent="filterToggle">
+                    Filtro <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="filterBox">
+                    
+                    <div class="filter_wrapper">
+                        <h3>Preço</h3>
+                        <div class="price_field"> 
+                            <input type="range" min="0" max="500" :value="minVal" id="min" @input="minChange">
+                            <input type="range" min="0" max="250" :value="maxVal" id="max" @input="maxChange">                    
+                        </div>
+                        <div class="price_show">
+                            <p>{{ 'R$ ' + minVal }} </p>
+                            <p>{{ 'R$ ' + maxVal }} </p>
+                        </div>
+                        <div class="btn_filter">
+                            <button @click.stop.prevent="filterProducts">Filter</button>
+                            <button @click.stop.prevent="clearFilter"><i class="fas fa-times"></i></button>
+                        </div>
                     </div>
-                    <div class="price_show">
-                        <p>{{ 'R$ ' + minVal }} </p>
-                        <p>{{ 'R$ ' + maxVal }} </p>
-                    </div>
-                    <div class="btn_filter">
+                    <div class="filter_wrapper search">
+                        <h3>Busca</h3>
+                        <input type="text" v-model="search" @keyup.enter="sendSearch" @click.stop.prevent="openSearch">
                         <button @click.stop.prevent="filterProducts">Filter</button>
-                        <button @click.stop.prevent="clearFilter"><i class="fas fa-times"></i></button>
+                        <button @click.stop.prevent="clearSearch"><i class="fas fa-times"></i></button>
                     </div>
                 </div>
-                <div class="filter_wrapper search">
-                    <input type="text" v-model="search" @keyup.enter="sendSearch" @click.stop.prevent="openSearch">
-                    <button @click.stop.prevent="filterProducts">Filter</button>
-                    <button @click.stop.prevent="clearSearch"><i class="fas fa-times"></i></button>
-                </div>
-                
             </div>
             <div class="main">
                 <CategoryProducts :products="products" v-if="products.length" />
@@ -47,7 +54,7 @@ export default {
             slug: this.$route.params.slug,
             page: null,
             minVal: 0,
-            maxVal: 500,
+            maxVal: 250,
             search: ''
         }
     },
@@ -127,15 +134,27 @@ export default {
         },
         clearFilter() {
             this.minVal = 0,
-            this.maxVal = 500
+            this.maxVal = 250
             this.getCategory()
         },
         clearSearch() {
             this.search = ''
-            if(this.minVal != 0 || this.maxVal != 500)
+            if(this.minVal != 0 || this.maxVal != 250)
                 this.filterProducts()
             else
                 this.getCategory()
+        },
+        filterToggle() {
+            const el = document.querySelector('.filterBox')
+            const blur = document.querySelector('.filter_blur')
+            
+            if(el.classList.contains('active')) {
+                el.classList.remove('active')
+                blur.style.display = 'none'
+            } else {
+                el.classList.add('active')
+                blur.style.display = 'block'
+            }
         }
     }
 }
@@ -149,6 +168,9 @@ export default {
             display: flex;
             .sidebar {
                 width: 250px;
+                .btn_mobile {
+                    display: none;
+                }
             }
             .main {
                 width: calc(100% - 250px);
@@ -225,7 +247,6 @@ export default {
                         }
                     }
                 }
-                
             }
             .price_show {
                 display: flex;
@@ -273,9 +294,64 @@ export default {
                     color: rgb(57,57,57);
                     margin: 0 auto;
                 }
-
             }
         }
-        
+    }
+    @media screen and (max-width: 960px) {
+        #category {
+            margin-top: 0;
+            min-height: calc(100vh - 240px);
+            position: relative;
+            .filter_blur {
+                position: absolute;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.129);
+                height: calc(100% - 20px);
+                z-index: 3;
+                top: 40px;
+                display: none;
+            }
+            .center {
+                position: relative;
+                overflow-x: hidden;
+                .sidebar {
+                    position: absolute;
+                    top: 10px;
+                    left: 0;
+                    width: 100%;
+                    z-index: 4;
+                    .btn_mobile {
+                        display: block;
+                        width: 100%;
+                        text-align: center;
+                        font-size: 16px;
+                        border-bottom: 1px solid rgba(57,57,57,.2);
+                        padding-bottom: 10px;
+                    }
+                    
+                    .filterBox {
+                        width: 100%;   
+                        background: white;
+                        position: absolute;
+                        left: 0; 
+                        top: -350px;
+                        transition: all 2s;
+                        z-index: 100;
+                        padding: 5%;
+                        &.active {
+                            top: 30px;
+                            
+                        }
+                    }
+                }
+                
+                .main {
+                    margin-top: 60px;
+                    padding: 0 1%;
+                    width: 100%;
+                    min-height: calc(100vh - 280px);
+                }
+            }
+        }
     }
 </style>

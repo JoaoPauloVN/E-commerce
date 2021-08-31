@@ -27,5 +27,19 @@ export default {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
-   
+    @media screen and (max-width: 864px) {
+        .box_products {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+    }
+    @media screen and (max-width: 740px) {
+        .box_products {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+    }
+    @media screen and (max-width: 595px) {
+        .box_products {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
 </style>

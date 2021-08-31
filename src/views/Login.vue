@@ -115,6 +115,7 @@ export default {
                 font-weight: 500;
                 border-radius: 25px;
                 border: none;
+                outline: none;
             }
             p {
                 color: rgb(150, 150, 150);

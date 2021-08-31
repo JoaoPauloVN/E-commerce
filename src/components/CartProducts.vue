@@ -37,6 +37,7 @@ export default {
                     if(i.id != parseInt(id)) return true
                 })
                 localStorage.setItem('cart', JSON.stringify(result))
+                this.$store.dispatch('upgradeCartQnt')
                 this.$emit('changeCart', result)
             }
         },

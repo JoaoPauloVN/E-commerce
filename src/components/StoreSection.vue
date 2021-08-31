@@ -118,6 +118,7 @@ export default {
                 height: 100%;
                 overflow: auto;
                 white-space: nowrap;
+                transition: all 2s;
                 .product_single {
                     display: inline-block;
                     padding: 5px;
